@@ -32,8 +32,9 @@ function Toolbar(props){
     <FontAwesomeIcon icon={ faPaperPlane} className="fa" onClick={props.onMessageSubmit}/>
     {toggle1 && <ul className="liste-fonts" >
       <li className="police1"
-      onClick={props.policeParisienne}> Police 1</li>
-      <li className="police2"> Police 2</li>
+      onClick={props.changePoliceParisienne}> Police 1</li>
+      <li className="police2"
+      onClick={props.changePoliceFredokaBold}> Police 2</li>
     </ul> }
     </div>
   )

@@ -15,6 +15,7 @@ function useMessagesReceived (){
     socket.on('chat message', (message) =>{
       setChat(chat => {
         return [...chat, {message}]})
+        console.log(message)
     });
      return function(){  socket.close()}
   }, [])
@@ -65,11 +66,13 @@ export function SendMessagesToIO (props){
     props.onHandleMessageChange( e.target.value)
   }
 
+  const font = [{fontFamily : props.police}]
+
   return (
 
       <form onSubmit={props.onMessageSubmit}>
       <input
-        style = {theme}
+        style = {{...theme,...font[0]}}
         placeholder="Type your text here"
         className="inputClass"
         type="text"

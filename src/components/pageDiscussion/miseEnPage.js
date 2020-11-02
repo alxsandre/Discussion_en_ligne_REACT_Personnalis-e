@@ -18,9 +18,17 @@ function MiseEnPageDiscussion() {
 
   }
 
-  const policeParisienne = () =>{
-      document.body.style.fontFamily = "parisienne"
+//Fonctions pour changer la police grace à la toolbar
+  const [police, setPolice] = useState('FredokaBold')
+  const changePoliceParisienne = (police) =>{
+    setPolice('parisienne')
+    document.body.style.fontFamily = "parisienne"
   }
+  const changePoliceFredokaBold = (police) =>{
+    setPolice('FredokaBold')
+    document.body.style.fontFamily = "FredokaBold"
+  }
+
 
   return (
     <div id="conversation">
@@ -29,11 +37,15 @@ function MiseEnPageDiscussion() {
       <SendMessagesToIO inputState={state}
       onHandleMessageChange={handleMessageChange}
       onMessageSubmit={onMessageSubmit}
+      police={police}
        />
 
       <MessagesFromIO />
       </div>
-      <Toolbar onMessageSubmit={onMessageSubmit} policeParisienne={policeParisienne}/>
+      <Toolbar
+      onMessageSubmit={onMessageSubmit}
+      changePoliceParisienne={changePoliceParisienne}
+      changePoliceFredokaBold={changePoliceFredokaBold}/>
     </div>
   );
 }
