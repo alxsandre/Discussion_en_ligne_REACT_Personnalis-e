@@ -1,0 +1,17 @@
+form { width: 100%;}
+
+.inputClass{
+  font: 1.2rem FredokaBold, Helvetica, Arial;
+  background-color: rgb(187, 235, 251);
+  border-radius: 22px;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  padding: 10px;
+  border: 0px;
+  width: 85%;
+  margin-right: 0.5%;
+  outline: none;
+  box-sizing: border-box;
+  }
+
+#messages { display: block;list-style-type: none; margin: 0; padding: 10px; word-break: break-word;}
