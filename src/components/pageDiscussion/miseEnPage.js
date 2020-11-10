@@ -3,17 +3,21 @@ import socket from './discussion'
 import {SendMessagesToIO, MessagesFromIO} from './discussion'
 import Toolbar from '../toolbar';
 import './miseEnPage.css';
+import { useLocation } from 'react-router-dom';
 
 function MiseEnPageDiscussion() {
 
+  let location = useLocation();
+
   const [state, setStaet] = useState('')
+
 
   const handleMessageChange = (state) =>{
     setStaet(state)
   }
   const onMessageSubmit = (e) => {
     e.preventDefault()
-    socket.emit('chat message', state);
+    socket.emit('chat message', {pseudo: location.state.Pseudo, message: state});
     setStaet('')
 
   }
@@ -34,13 +38,16 @@ function MiseEnPageDiscussion() {
     <div id="conversation">
       <div className="center">
 
-      <SendMessagesToIO inputState={state}
+      <SendMessagesToIO
+      inputState={state}
       onHandleMessageChange={handleMessageChange}
       onMessageSubmit={onMessageSubmit}
       police={police}
+      location={location}
        />
 
       <MessagesFromIO />
+
       </div>
       <Toolbar
       onMessageSubmit={onMessageSubmit}

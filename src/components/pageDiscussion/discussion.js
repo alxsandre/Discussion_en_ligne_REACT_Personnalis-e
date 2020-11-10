@@ -1,7 +1,8 @@
-import React, {useState, useEffect, useContext} from 'react';
+import React, {useState, useEffect, useContext } from 'react';
 import io from 'socket.io-client';
 import './discussion.css';
-import {StyleThemeContext} from './../../App'
+import {StyleThemeContext} from './../../App';
+import { useLocation } from 'react-router-dom';
 
 const socket = io.connect('http://localhost:8000')
 export default socket;
@@ -9,16 +10,21 @@ export default socket;
 //Reçoit les messages de socket.io et l'envoit pour des fonctions
 function useMessagesReceived (){
 
-  const [chat, setChat] = useState([])
+  const [chat, setChat] = useState([{pseudo: "", message:""}])
+
+  let location = useLocation();
+
+
+
 
   useEffect(() =>{
     socket.on('chat message', (message) =>{
       setChat(chat => {
-        return [...chat, {message}]})
-        console.log(message)
+        return [...chat, message]})
     });
      return function(){  socket.close()}
   }, [])
+
 
 //Affiche le dernier message dans le titre de la page
   useEffect(() => {
@@ -28,7 +34,7 @@ function useMessagesReceived (){
 
 
     return(
-      chat
+      [chat, location]
     )
 
 }
@@ -37,23 +43,28 @@ function useMessagesReceived (){
 
 
 //Affiche les messages
-export function MessagesFromIO (){
-      const chat = useMessagesReceived()
-
-
-      const renderChat = () => {
-        return chat.map(({message}, index) => (
-          <li id="messages" key={index}>
-              {message}
-          </li>
-        ))
-      }
+export function MessagesFromIO (props){
+      const [chat, location] = useMessagesReceived()
 
       return(
-            <ul>{renderChat().reverse()}</ul>
+        <div className="messageFlex">
+            {chat.map(({pseudo, message}, index) => {
+              if (pseudo === location.state.Pseudo) {
+                return (<li id="messages"  key={index} >
+                   {message}
+                  </li>
+                )
+              }
+              return (
+                <li id="messages"   key={index} className="messagesRight">
+                 {message}
+                </li>
+              )
+
+            })}
+        </div>
       )
 }
-
 
 
 
@@ -70,7 +81,7 @@ export function SendMessagesToIO (props){
 
   return (
 
-      <form onSubmit={props.onMessageSubmit}>
+      <form className="formDiscussion" onSubmit={props.onMessageSubmit}>
       <input
         style = {{...theme,...font[0]}}
         placeholder="Type your text here"

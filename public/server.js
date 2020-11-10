@@ -14,7 +14,7 @@ let messages = [];
 let history = 50
 
 io.on('connection', (socket) => {
-  
+
   for(let k in messages){
   socket.emit('chat message', messages[k])};
 

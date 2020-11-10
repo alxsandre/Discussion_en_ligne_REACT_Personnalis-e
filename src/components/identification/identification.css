@@ -1,0 +1,24 @@
+.mepIdentification{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
+
+}
+
+.inputIdentification{
+  width: 260px;
+}
+
+button{
+  position: relative;
+  right: -160px;
+  bottom: 36px;
+  font: 1.2rem FredokaBold, Helvetica, Arial;
+  color: white;
+  border: solid gray 2px;
+  border-radius: 50%;
+  background-color: grey;
+  cursor: pointer;
+}

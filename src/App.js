@@ -1,6 +1,8 @@
 import React, {useState, useCallback, useMemo, useEffect} from 'react';
 import './App.css';
-import MiseEnPageDiscussion from './components/pageDiscussion/miseEnPage'
+import MiseEnPageDiscussion from './components/pageDiscussion/miseEnPage';
+import MepIdentification from './components/identification/identification';
+import {BrowserRouter as Router, Route} from 'react-router-dom';
 
 const styleTheme = {
    dark:{
@@ -47,9 +49,14 @@ function App() {
 
   return (
     <div>
-    <StyleThemeContext.Provider value={value}>
-      <MiseEnPageDiscussion />
-    </StyleThemeContext.Provider>
+    <Router>
+
+        <StyleThemeContext.Provider value={value}>
+            <Route path="/" exact component={MepIdentification} />
+            <Route path="/discussion" exact component={MiseEnPageDiscussion} />
+
+        </StyleThemeContext.Provider>
+    </Router>
     </div>
   );
 }
